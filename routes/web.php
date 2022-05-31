@@ -9,19 +9,24 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middelware ({'auth'})->name('dashboard');
+})->middleware (['auth'])->name('dashboard');
 
-Route::get('/movies', function(){
-    return view('movie')
+
+Route::get('/movie', function(){
+    return view('movie');
 });
 
 Route::post('/movies', function(Request $request){
     $search = $request->input('movie');
-    $movies =  HTTP::get('http://www.omdbapi.com/?apikey=52ae5c83&s='.$search)
-    $movie = json_decode($movies)
-    return view('movie', compact('movies'))
+    $movies = Http::get('http://www.omdbapi.com/?apikey=52ae5c83&s='.$search);
+    $movies = json_decode($movies);
+    return view('movie', compact('movies'));
 });
 
-require_DIR_.'/auth.php'
+
+
+//require_DIR_.'/auth.php';
+
