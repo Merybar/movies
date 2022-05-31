@@ -1,18 +1,27 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middelware ({'auth'})->name('dashboard');
+
+Route::get('/movies', function(){
+    return view('movie')
+});
+
+Route::post('/movies', function(Request $request){
+    $search = $request->input('movie');
+    $movies =  HTTP::get('http://www.omdbapi.com/?apikey=52ae5c83&s='.$search)
+    $movie = json_decode($movies)
+    return view('movie', compact('movies'))
+});
+
+require_DIR_.'/auth.php'
